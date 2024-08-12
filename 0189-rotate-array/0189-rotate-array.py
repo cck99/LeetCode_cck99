@@ -1,11 +1,26 @@
 class Solution:
     def rotate(self, nums: List[int], k: int) -> None:
-        n = len(nums)
-        k = k % n
-        rotated = [0] * n
-
-        for i in range(n):
-            rotated[(i + k) % n] = nums[i]
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        k = k % len(nums)
         
-        for i in range(n):
-            nums[i] = rotated[i]
+        nums.reverse()
+
+        l, r = 0, k - 1
+
+        while l < r:
+            nums[l], nums[r] = nums[r], nums[l]
+            l += 1
+            r -= 1
+
+
+        l, r = k, len(nums) - 1
+        while l < r:
+            nums[l], nums[r] = nums[r], nums[l]
+            l += 1
+            r -= 1
+
+
+
+        
