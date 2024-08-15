@@ -1,25 +1,18 @@
 class Solution:
     def isIsomorphic(self, s: str, t: str) -> bool:
-        if len(s) != len(t):
+        indexS = [0] * 200 # Stores index of characters in string s
+        indexT = [0] * 200 # Stores index of characters in string t
+        
+        length = len(s) # Get the length of both strings
+        
+        if length != len(t): # If the lengths of the two strings are different, they can't be isomorphic
             return False
-
-        # 两个字典用于存储字符映射关系
-        s_to_t = {}
-        t_to_s = {}
-
-        for char_s, char_t in zip(s, t):
-            # 检查 s 到 t 的映射
-            if char_s in s_to_t:
-                if s_to_t[char_s] != char_t:
-                    return False
-            else:
-                s_to_t[char_s] = char_t
-
-            # 检查 t 到 s 的映射
-            if char_t in t_to_s:
-                if t_to_s[char_t] != char_s:
-                    return False
-            else:
-                t_to_s[char_t] = char_s
-
-        return True
+        
+        for i in range(length): # Iterate through each character of the strings
+            if indexS[ord(s[i])] != indexT[ord(t[i])]: # Check if the index of the current character in string s is different from the index of the corresponding character in string t
+                return False # If different, strings are not isomorphic
+            
+            indexS[ord(s[i])] = i + 1 # updating position of current character
+            indexT[ord(t[i])] = i + 1
+        
+        return True # If the loop completes without returning false, strings are isomorphic
